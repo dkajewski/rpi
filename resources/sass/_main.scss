@@ -1,0 +1,20 @@
+@import "variables";
+
+body {
+  margin: 0;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+}
+
+.content {
+  width: 100%;
+  max-width: 800px;
+  height: 100%;
+  max-height: 480px;
+  margin: 0 auto;
+  background: purple;
+  h1 {
+    margin: 0;
+  }
+}
