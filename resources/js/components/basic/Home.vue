@@ -2,8 +2,10 @@
     <div class="content">
         <h1>Home content</h1>
         <div v-show="weather">
-            <p>temp: {{(weather.main.temp-273.15).toFixed(2)}}&deg;C</p>
-            <p>feels like: {{(weather.main.feels_like-273.15).toFixed(2)}}&deg;C</p>
+            <p>{{$t('basic.temperature')}}: {{weather.temp.toFixed(2)}}&deg;C</p>
+            <p>{{$t('basic.feels-like')}}: {{weather.feels_like.toFixed()}}&deg;C</p>
+            <p>{{$t('basic.sunrise')}}: {{this.convertTimestampToDate(weather.sunrise)}}</p>
+            <p>{{$t('basic.sunset')}}: {{this.convertTimestampToDate(weather.sunset)}}</p>
         </div>
     </div>
 </template>
@@ -11,7 +13,18 @@
     export default {
         data() {
             return {
-                weather: null,
+                weather: {
+                    weather: '',
+                    weather_description: '',
+                    temp: 0,
+                    feels_like: 0,
+                    pressure: 0,
+                    humidity: 0,
+                    wind_speed: 0,
+                    cloudiness: 0,
+                    sunrise: '',
+                    sunset: '',
+                },
             }
         },
 
@@ -33,6 +46,15 @@
         methods: {
             handleEvent: function(data) {
                 console.log(data);
+            },
+
+            convertTimestampToDate: function(timestamp) {
+                let date = new Date(timestamp*1000);
+                let hours = date.getHours();
+                let minutes = "0"+date.getMinutes();
+                let seconds = "0"+date.getSeconds();
+
+                return hours+':'+minutes.substr(-2)+':'+seconds.substr(-2);
             },
         },
     }

@@ -30,10 +30,24 @@ class WeatherController extends Controller
         ];
 
         $response = json_decode($client->get('https://api.openweathermap.org/data/2.5/weather/', $params)->getBody()->getContents());
-        if (!$request->stopEvent) {
-            event(new HomeEvent(['data' => $response]));
+        $data = [];
+        if (!empty($response)) {
+            $data['weather'] = $response->weather[0]->main;
+            $data['weather_description'] = $response->weather[0]->description;
+            $data['temp'] = $response->main->temp-273.15;
+            $data['feels_like'] = $response->main->feels_like-273.15;
+            $data['pressure'] = $response->main->pressure;
+            $data['humidity'] = $response->main->humidity;
+            $data['wind_speed'] = $response->wind->speed;
+            $data['cloudiness'] = $response->clouds->all;
+            $data['sunrise'] = $response->sys->sunrise;
+            $data['sunset'] = $response->sys->sunset;
         }
 
-        return response()->json(['data' => $response]);
+        if (!($request->stopEvent ?? 0)) {
+            event(new HomeEvent(['data' => $data]));
+        }
+
+        return response()->json(['data' => $data]);
     }
 }
