@@ -22,5 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([], function () {
     Route::post('auth', function () { return 1; });
     Route::get('getCurrentWeather', 'WeatherController@getCurrentWeather');
+    Route::get('getNotes', 'NotesController@index');
 });
 

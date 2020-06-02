@@ -5,10 +5,17 @@ export default {
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."
         },
         "basic": {
+            "clock": "Clock",
+            "events": "Events",
             "feels-like": "Feels like",
+            "humidity": "Humidity",
+            "no-events": "No events",
+            "pressure": "Pressure",
             "sunrise": "Sunrise",
             "sunset": "Sunset",
-            "temperature": "Temperature"
+            "temperature": "Temperature",
+            "weather": "Weather",
+            "wind-speed": "Wind speed"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -140,10 +147,17 @@ export default {
             "throttle": "Za dużo prób logowania. Spróbuj ponownie za {seconds} sekund."
         },
         "basic": {
+            "clock": "Zegar",
+            "events": "Zdarzenia",
             "feels-like": "Odczuwalna",
+            "humidity": "Wilgotność",
+            "no-events": "Brak zdarzeń",
+            "pressure": "Ciśnienie",
             "sunrise": "Wschód",
             "sunset": "Zachód",
-            "temperature": "Temperatura"
+            "temperature": "Temperatura",
+            "weather": "Pogoda",
+            "wind-speed": "Prędkość wiatru"
         },
         "pagination": {
             "previous": "&laquo; Poprzednia",

@@ -45,7 +45,7 @@ class WeatherController extends Controller
         }
 
         if (!($request->stopEvent ?? 0)) {
-            event(new HomeEvent(['data' => $data]));
+            event(new HomeEvent($data));
         }
 
         return response()->json(['data' => $data]);

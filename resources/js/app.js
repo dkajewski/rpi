@@ -5,8 +5,11 @@ import Routes from './routes';
 import App from './views/App';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.use(VueInternationalization);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 Vue.mixin({
     methods: {
         getRequest: async function(url = '', data = '') {
