@@ -1,65 +1,59 @@
 <template>
-    <div class="content">
-        <div class="column">
-            <div class="box clock">
-                <div class="row text-center">
-                    <div class="col-md-12 header">{{$t('basic.clock')}}</div>
-                </div>
-                <div class="row text-center">
+    <div class="content row">
+        <div class="col-md-6">
+            <div class="box clock row">
+                <div class="col-md-12 text-center header">{{$t('basic.clock')}}</div>
+                <div class="col-md-12 text-center">
                     <div class="col-md-12 py-2 clock-container">{{clock}}</div>
                 </div>
             </div>
-            <div class="box weather-widget">
-                <div class="row text-center">
-                    <div class="col-md-12 header">{{$t('basic.weather')}}</div>
-                </div>
-                <div class="row">
-                    <div class="icon col-md-4">
-                        <font-awesome-icon :icon="['fas', weather.icon]"></font-awesome-icon>
-                    </div>
-                    <div class="temperature-box col-md-8">{{weather.temp.toFixed(1)}}&deg;C</div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12 temperature-feel">{{$t('basic.feels-like')}}: {{weather.feels_like.toFixed(1)}}&deg;C</div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-6">
-                        <p>{{$t('basic.sunrise')}}: {{this.convertTimestampToDate(weather.sunrise)}}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{$t('basic.sunset')}}: {{this.convertTimestampToDate(weather.sunset)}}</p>
+            <div class="box weather-widget row">
+                <div class="col-md-12 text-center header">{{$t('basic.weather')}}</div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="icon col-md-4">
+                            <font-awesome-icon :icon="['fas', weather.icon]"></font-awesome-icon>
+                        </div>
+                        <div class="temperature-box col-md-8">{{weather.temp.toFixed(1)}}&deg;C</div>
                     </div>
                 </div>
-                <div class="row text-center">
-                    <div class="col-md-6">
-                        <p>{{$t('basic.pressure')}}: {{weather.pressure}}hPa</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>{{$t('basic.humidity')}}: {{weather.humidity}}%</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <p>{{$t('basic.wind-speed')}}: {{weather.wind_speed}}m/s</p>
+                <div class="col-md-12 text-center temperature-feel">{{$t('basic.feels-like')}}: {{weather.feels_like.toFixed(1)}}&deg;C</div>
+                <div class="col-md-12 text-center">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{$t('basic.sunrise')}}: {{this.convertTimestampToDate(weather.sunrise)}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{$t('basic.sunset')}}: {{this.convertTimestampToDate(weather.sunset)}}</p>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-12 text-center">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{$t('basic.pressure')}}: {{weather.pressure}}hPa</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{$t('basic.humidity')}}: {{weather.humidity}}%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center"><p>{{$t('basic.wind-speed')}}: {{weather.wind_speed}}m/s</p></div>
             </div>
         </div>
-        <div class="column">
-            <div class="box notes">
-                <div class="row text-center">
-                    <div class="col-md-12 header">{{$t('basic.events')}}</div>
-                </div>
-                <div class="row" v-show="!notes[0].id">
-                    <div class="col-md-12">{{$t('basic.no-events')}}</div>
-                </div>
-                <div class="note py-1 px-1 my-1" v-show="notes[0].id" v-for="note in notes" v-bind:class="{'upcoming': note.upcoming, 'taking-place': note.taking_place}">
-                    <span>{{note.start_at}}</span>
-                    <span v-show="note.end_at !== 0"> - {{note.end_at}}</span>
-                    <span>: {{note.description}}</span>
+        <div class="col-md-6">
+            <div class="box notes row">
+                <div class="col-md-12 text-center header">{{$t('basic.events')}}</div>
+                <div class="col-md-12" v-show="!notes.length">{{$t('basic.no-events')}}</div>
+                <div class="col-md-12" v-cloak>
+                    <div class="row note py-1 px-1 my-1" v-for="note in notes" v-bind:class="{'upcoming': note.upcoming, 'taking-place': note.taking_place}">
+                        <span>{{note.start_at}}</span>
+                        <span v-show="note.end_at !== 0"> - {{note.end_at}}</span>
+                        <span>: {{note.description}}</span>
+                    </div>
                 </div>
             </div>
-            <div class="box sensors">
+            <div class="box sensors row">
                 sensors
             </div>
         </div>
@@ -83,14 +77,7 @@
                     icon: 'smile-beam'
                 },
 
-                notes: [{
-                    id: 0,
-                    description: '',
-                    start_at: 0,
-                    end_at: 0,
-                    upcoming: false,
-                    taking_place: false,
-                }],
+                notes: [],
                 clock: '',
             }
         },
