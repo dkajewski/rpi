@@ -29,7 +29,7 @@ Vue.mixin({
             return response.json();
         },
 
-        postRequest: async function() {
+        postRequest: async function(url = '', data = '') {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {

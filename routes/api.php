@@ -21,7 +21,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([], function () {
     Route::post('auth', function () { return 1; });
+    Route::post('deleteNote', 'NotesController@deleteNote');
+    Route::get('getAllFutureNotes', 'NotesController@getAllFutureNotes');
     Route::get('getCurrentWeather', 'WeatherController@getCurrentWeather');
     Route::get('getNotes', 'NotesController@index');
+    Route::post('saveNote', 'NotesController@store');
 });
 

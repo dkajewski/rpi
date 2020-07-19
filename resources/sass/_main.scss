@@ -24,6 +24,9 @@ body {
 .box {
   background: $box-bg;
   border: 8px solid $background-color;
+  .table {
+    color: #FFF;
+  }
 }
 
 .header {
@@ -32,11 +35,6 @@ body {
 
 .weather-widget {
   height: 300px;
-  .icon {
-    height: 76px;
-    text-align: center;
-    font-size: 46px;
-  }
   .temperature-box {
     height: 76px;
     line-height: 76px;
@@ -68,4 +66,16 @@ body {
 
 .clock-container {
   font-size: 58px;
+}
+
+.icon {
+  height: 76px;
+  text-align: center;
+  font-size: 46px;
+}
+
+@media (max-width: 767px) {
+  .weather-widget {
+    height: auto;
+  }
 }
