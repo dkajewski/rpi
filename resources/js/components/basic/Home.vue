@@ -136,21 +136,29 @@
                 stopEvent: 1
             };
             this.getRequest('/api/getCurrentWeather', params).then(response => {
-                this.handleEvent(response.data);
+                this.handleEvent(response.data, response.event_type);
             });
 
             this.setNotes();
             this.getAllFutureNotes();
             window.Echo.channel('home-channel')
                 .listen('.home-event', (response) => {
-                    this.handleEvent(response.data);
+                    this.handleEvent(response.data.data, response.data.event_type);
                 });
 
             setInterval(this.updateClock, 1000);
         },
 
         methods: {
-            handleEvent: function(data) {
+            handleEvent: function(data, eventType) {
+                switch(eventType) {
+                    case 'weather': this.handleWeatherEvent(data); break;
+                    case 'notes': this.handleNotesEvent(data); break;
+                    case 'futureNotes': this.futureNotes = data; break;
+                }
+            },
+
+            handleWeatherEvent: function(data) {
                 this.weather = data;
                 switch(data.weather) {
                     case 'Rain':
@@ -177,38 +185,42 @@
                 }
             },
 
+            handleNotesEvent: function(data) {
+                this.notes = data;
+                let nowTemp = new Date();
+                let now = new Date(nowTemp.getFullYear(), nowTemp.getMonth()+1, nowTemp.getDate());
+                let hourNotSet = ' 2:00:00';
+                for (let note in this.notes) {
+                    let noteDateTemp = new Date(this.notes[note].start_at*1000);
+                    let noteDate = new Date(noteDateTemp.getFullYear(), noteDateTemp.getMonth()+1, noteDateTemp.getDate());
+                    let diff = new Date(noteDate.getTime() - now.getTime());
+                    this.notes[note].start_at = this.convertTimestampToDate(this.notes[note].start_at, true);
+                    if (hourNotSet === this.notes[note].start_at.substr(-8)) {
+                        this.notes[note].start_at = this.notes[note].start_at.substr(0, 10).trim();
+                    }
+
+                    if (this.notes[note].end_at !== 0) {
+                        this.notes[note].end_at = this.convertTimestampToDate(this.notes[note].end_at, true);
+                    }
+
+                    let diffDays = diff.getUTCDate() - 1;
+                    if (diffDays === 1) {
+                        this.notes[note].upcoming = true;
+                    }
+
+                    if (diffDays === 0) {
+                        this.notes[note].taking_place = true;
+                    }
+                }
+            },
+
             updateClock: function() {
                 this.clock = new Date().toTimeString().slice(0, 8);
             },
 
             setNotes: function() {
                 this.getRequest('/api/getNotes').then(response => {
-                    this.notes = response.data;
-                    let nowTemp = new Date();
-                    let now = new Date(nowTemp.getFullYear(), nowTemp.getMonth()+1, nowTemp.getDate());
-                    let hourNotSet = ' 2:00:00';
-                    for (let note in this.notes) {
-                        let noteDateTemp = new Date(this.notes[note].start_at*1000);
-                        let noteDate = new Date(noteDateTemp.getFullYear(), noteDateTemp.getMonth()+1, noteDateTemp.getDate());
-                        let diff = new Date(noteDate.getTime() - now.getTime());
-                        this.notes[note].start_at = this.convertTimestampToDate(this.notes[note].start_at, true);
-                        if (hourNotSet === this.notes[note].start_at.substr(-8)) {
-                            this.notes[note].start_at = this.notes[note].start_at.substr(0, 10).trim();
-                        }
-
-                        if (this.notes[note].end_at !== 0) {
-                            this.notes[note].end_at = this.convertTimestampToDate(this.notes[note].end_at, true);
-                        }
-
-                        let diffDays = diff.getUTCDate() - 1;
-                        if (diffDays === 1) {
-                            this.notes[note].upcoming = true;
-                        }
-
-                        if (diffDays === 0) {
-                            this.notes[note].taking_place = true;
-                        }
-                    }
+                    this.handleNotesEvent(response.data);
                 });
             },
 
@@ -241,8 +253,6 @@
                     this.alertText = response.message;
                     if (response.type === 'success') {
                         this.alertClass = 'alert-success';
-                        this.getAllFutureNotes();
-                        this.setNotes();
                     } else {
                         this.alertClass = 'alert-danger';
                     }

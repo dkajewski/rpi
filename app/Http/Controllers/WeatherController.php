@@ -12,7 +12,7 @@ class WeatherController extends Controller
     /**
      * Function returns json object with current weather
      *
-     * @param Request $request
+     * @param Request|\stdClass $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function getCurrentWeather(Request $request)
@@ -48,6 +48,6 @@ class WeatherController extends Controller
             event(new HomeEvent($data));
         }
 
-        return response()->json(['data' => $data]);
+        return response()->json(['data' => $data, 'event_type' => 'weather']);
     }
 }
