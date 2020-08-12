@@ -47,7 +47,7 @@ class NotesController extends Controller
         return NoteResource::collection($notes);
     }
 
-    private function getDisplayedNotes()
+    public function getDisplayedNotes()
     {
         $notes = Note::where('start_at', '>=', date('Y-m-d'))
             ->orderBy('start_at', 'asc')
