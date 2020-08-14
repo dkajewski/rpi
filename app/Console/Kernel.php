@@ -36,6 +36,19 @@ class Kernel extends ConsoleKernel
             $notesController = new NotesController();
             event(new HomeEvent(['data' => $notesController->getDisplayedNotes(), 'event_type' => 'notes']));
         })->everyTenMinutes();
+
+        $schedule->call(function () {
+            // @todo make this functionality depending on sunset
+            $hour = (int)date('H');
+            if (
+                ($hour >= 0 && $hour <= 6)
+                || ($hour >= 21 && $hour <= 23)
+            ) {
+                file_put_contents('/sys/class/backlight/rpi_backlight', '0');
+            } else {
+                file_put_contents('/sys/class/backlight/rpi_backlight', '75');
+            }
+        })->hourly();
     }
 
     /**
