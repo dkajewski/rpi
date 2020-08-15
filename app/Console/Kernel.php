@@ -44,9 +44,9 @@ class Kernel extends ConsoleKernel
                 ($hour >= 0 && $hour <= 6)
                 || ($hour >= 21 && $hour <= 23)
             ) {
-                file_put_contents('/sys/class/backlight/rpi_backlight', '0');
+                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', '0');
             } else {
-                file_put_contents('/sys/class/backlight/rpi_backlight', '75');
+                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', '75');
             }
         })->hourly();
     }
