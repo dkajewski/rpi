@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        //@todo move this code to commands maybe
         $schedule->call(function () {
             $weatherController = new WeatherController();
             $weatherController->getCurrentWeather(new \stdClass());
@@ -44,10 +45,14 @@ class Kernel extends ConsoleKernel
                 ($hour >= 0 && $hour <= 6)
                 || ($hour >= 21 && $hour <= 23)
             ) {
-                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', '0');
+                $brightness = 0;
+                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
             } else {
-                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', '75');
+                $brightness = 60;
+                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
             }
+
+            echo "\n".date('Y-m-d H:i:s')."\t"."Inserted brightness value: ".$brightness;
         })->hourly();
     }
 
