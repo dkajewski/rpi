@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             $weatherController = new WeatherController();
             $weatherController->getCurrentWeather(new \stdClass());
-        })->hourly();
+        })->everyThirtyMinutes();
 
         $schedule->call(function () {
             $notesController = new NotesController();

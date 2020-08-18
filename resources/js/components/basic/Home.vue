@@ -189,7 +189,7 @@
                 this.notes = data;
                 let nowTemp = new Date();
                 let now = new Date(nowTemp.getFullYear(), nowTemp.getMonth()+1, nowTemp.getDate());
-                let hourNotSet = ' 2:00:00';
+                let hourNotSet = ' 0:00:00';
                 for (let note in this.notes) {
                     let noteDateTemp = new Date(this.notes[note].start_at*1000);
                     let noteDate = new Date(noteDateTemp.getFullYear(), noteDateTemp.getMonth()+1, noteDateTemp.getDate());
