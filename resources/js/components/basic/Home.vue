@@ -132,11 +132,8 @@
         },
 
         created() {
-            let params = {
-                stopEvent: 1
-            };
-            this.getRequest('/api/getCurrentWeather', params).then(response => {
-                this.handleEvent(response.data, response.event_type);
+            this.getRequest('/api/getCurrentWeather').then(response => {
+                this.handleWeatherEvent(response.data);
             });
 
             this.setNotes();

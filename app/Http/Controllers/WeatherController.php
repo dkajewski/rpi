@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\HomeEvent;
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 class WeatherController extends Controller
 {
@@ -12,10 +10,16 @@ class WeatherController extends Controller
     /**
      * Function returns json object with current weather
      *
-     * @param Request|\stdClass $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCurrentWeather(Request $request)
+    public function getCurrentWeather()
+    {
+        $data = $this->getCurrentWeatherArray();
+
+        return response()->json(['data' => $data]);
+    }
+
+    public function getCurrentWeatherArray()
     {
         $apiKey = env('OPENWEATHERMAP_API_KEY');
         $latitude = env('OWM_LATITUDE');
@@ -44,10 +48,6 @@ class WeatherController extends Controller
             $data['sunset'] = $response->sys->sunset;
         }
 
-        if (!($request->stopEvent ?? 0)) {
-            event(new HomeEvent($data));
-        }
-
-        return response()->json(['data' => $data, 'event_type' => 'weather']);
+        return $data;
     }
 }

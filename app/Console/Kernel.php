@@ -30,12 +30,14 @@ class Kernel extends ConsoleKernel
         //@todo move this code to commands maybe
         $schedule->call(function () {
             $weatherController = new WeatherController();
-            $weatherController->getCurrentWeather(new \stdClass());
+            $weather = ['data' => $weatherController->getCurrentWeatherArray(), 'event_type' => 'weather'];
+            event(new HomeEvent($weather));
         })->everyThirtyMinutes();
 
         $schedule->call(function () {
             $notesController = new NotesController();
-            event(new HomeEvent(['data' => $notesController->getDisplayedNotes(), 'event_type' => 'notes']));
+            $notes = ['data' => $notesController->getDisplayedNotes(), 'event_type' => 'notes'];
+            event(new HomeEvent($notes));
         })->everyTenMinutes();
 
         $schedule->call(function () {
@@ -48,7 +50,7 @@ class Kernel extends ConsoleKernel
                 $brightness = 0;
                 file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
             } else {
-                $brightness = 60;
+                $brightness = 50;
                 file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
             }
 
