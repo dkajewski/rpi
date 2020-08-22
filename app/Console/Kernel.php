@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ScreenBrightness',
     ];
 
     /**
@@ -40,22 +40,7 @@ class Kernel extends ConsoleKernel
             event(new HomeEvent($notes));
         })->everyTenMinutes();
 
-        $schedule->call(function () {
-            // @todo make this functionality depending on sunset
-            $hour = (int)date('H');
-            if (
-                ($hour >= 0 && $hour <= 6)
-                || ($hour >= 21 && $hour <= 23)
-            ) {
-                $brightness = 0;
-                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
-            } else {
-                $brightness = 50;
-                file_put_contents('/sys/class/backlight/rpi_backlight/brightness', $brightness);
-            }
-
-            echo "\n".date('Y-m-d H:i:s')."\t"."Inserted brightness value: ".$brightness;
-        })->hourly();
+        $schedule->command('brightness:set')->hourly();
     }
 
     /**
