@@ -2,9 +2,6 @@
 
 namespace App\Console;
 
-use App\Events\HomeEvent;
-use App\Http\Controllers\NotesController;
-use App\Http\Controllers\WeatherController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -17,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\ScreenBrightness',
+        'App\Console\Commands\Weather',
+        'App\Console\Commands\Notes',
     ];
 
     /**
@@ -27,19 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //@todo move this code to commands maybe
-        $schedule->call(function () {
-            $weatherController = new WeatherController();
-            $weather = ['data' => $weatherController->getCurrentWeatherArray(), 'event_type' => 'weather'];
-            event(new HomeEvent($weather));
-        })->everyThirtyMinutes();
-
-        $schedule->call(function () {
-            $notesController = new NotesController();
-            $notes = ['data' => $notesController->getDisplayedNotes(), 'event_type' => 'notes'];
-            event(new HomeEvent($notes));
-        })->everyTenMinutes();
-
+        $schedule->command('weather:send-event')->everyThirtyMinutes();
+        $schedule->command('notes:send-event')->everyTenMinutes();
         $schedule->command('brightness:set')->hourly();
     }
 
