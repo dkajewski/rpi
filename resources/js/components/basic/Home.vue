@@ -185,11 +185,11 @@
             handleNotesEvent: function(data) {
                 this.notes = data;
                 let nowTemp = new Date();
-                let now = new Date(nowTemp.getFullYear(), nowTemp.getMonth()+1, nowTemp.getDate());
+                let now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate());
                 let hourNotSet = ' 0:00:00';
                 for (let note in this.notes) {
                     let noteDateTemp = new Date(this.notes[note].start_at*1000);
-                    let noteDate = new Date(noteDateTemp.getFullYear(), noteDateTemp.getMonth()+1, noteDateTemp.getDate());
+                    let noteDate = new Date(noteDateTemp.getFullYear(), noteDateTemp.getMonth(), noteDateTemp.getDate());
                     let diff = new Date(noteDate.getTime() - now.getTime());
                     this.notes[note].start_at = this.convertTimestampToDate(this.notes[note].start_at, true);
                     if (hourNotSet === this.notes[note].start_at.substr(-8)) {
@@ -200,7 +200,7 @@
                         this.notes[note].end_at = this.convertTimestampToDate(this.notes[note].end_at, true);
                     }
 
-                    let diffDays = diff.getUTCDate() - 1;
+                    let diffDays = (diff.getTime()/1000)/(3600*24);
                     if (diffDays === 1) {
                         this.notes[note].upcoming = true;
                     }
