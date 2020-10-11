@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Configuration;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -37,19 +38,15 @@ class ScreenBrightness extends Command
      */
     public function handle()
     {
-        $screenBrightnessFilepath = env('SCREEN_BRIGHTNESS_FILEPATH');
         $hour = (int)date('H');
-        if (
-            ($hour >= 0 && $hour <= 6)
-            || ($hour >= 21 && $hour <= 23)
-        ) {
-            $brightness = 0;
-        } else {
-            $brightness = 50;
-        }
+        $screenBrightnessFilepath = env('SCREEN_BRIGHTNESS_FILEPATH');
+        $brightnessConfig = Configuration::where([
+            ['configuration_group', '=', 'screen_brightness'],
+            ['configuration_key', '=', "SB_HOUR_$hour"],
+        ])->first();
 
         try {
-            file_put_contents($screenBrightnessFilepath, $brightness);
+            file_put_contents($screenBrightnessFilepath, $brightnessConfig->configuration_value);
         } catch (\Exception $e) {
             Log::channel('cron')->error($e->getMessage());
         }
