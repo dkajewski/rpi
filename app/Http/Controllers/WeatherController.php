@@ -46,6 +46,7 @@ class WeatherController extends Controller
             $data['cloudiness'] = $response->clouds->all;
             $data['sunrise'] = $response->sys->sunrise;
             $data['sunset'] = $response->sys->sunset;
+            $data['updated_at'] = date('d.m H:i');
         }
 
         return $data;

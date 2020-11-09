@@ -11,6 +11,7 @@ return [
     'events-list' => 'Lista zdarzeń',
     'feels-like' => 'Odczuwalna',
     'humidity' => 'Wilgotność',
+    'last-update' => 'Ost. aktualizacja',
     'name' => 'Nazwa',
     'no-events' => 'Brak zdarzeń',
     'pressure' => 'Ciśnienie',

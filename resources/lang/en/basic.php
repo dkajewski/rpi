@@ -11,6 +11,7 @@ return [
     'events-list' => 'Events list',
     'feels-like' => 'Feels like',
     'humidity' => 'Humidity',
+    'last-update' => 'Last update',
     'name' => 'Name',
     'no-events' => 'No events',
     'pressure' => 'Pressure',

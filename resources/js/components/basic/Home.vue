@@ -57,7 +57,12 @@
                         <div class="temperature-box col-md-8">{{weather.temp.toFixed(1)}}&deg;C</div>
                     </div>
                 </div>
-                <div class="col-md-12 text-center temperature-feel">{{$t('basic.feels-like')}}: {{weather.feels_like.toFixed(1)}}&deg;C</div>
+                <div class="col-md-12 text-center temperature-feel">
+                    <div class="row">
+                        <div class="col-md-6">{{$t('basic.feels-like')}}: {{weather.feels_like.toFixed(1)}}&deg;C</div>
+                        <div class="col-md-6 weather-updated-at">{{$t('basic.last-update')}}: {{weather.updated_at}}</div>
+                    </div>
+                </div>
                 <div class="col-md-12 text-center">
                     <div class="row">
                         <div class="col-md-6">
@@ -116,7 +121,8 @@
                     cloudiness: 0,
                     sunrise: 0,
                     sunset: 0,
-                    icon: 'smile-beam'
+                    icon: 'smile-beam',
+                    updated_at: '00.00 00:00',
                 },
 
                 notes: [],
