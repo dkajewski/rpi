@@ -4,6 +4,7 @@ return [
     'add-event' => 'Add event',
     'beginning' => 'Beginning',
     'clock' => 'Clock',
+    'date' => 'Date',
     'deleted-successfully' => 'Deleted successfully',
     'ending' => 'Ending',
     'error-occurred' => 'Error occurred',

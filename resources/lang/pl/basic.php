@@ -4,6 +4,7 @@ return [
     'add-event' => 'Dodaj zdarzenie',
     'beginning' => 'Początek',
     'clock' => 'Zegar',
+    'date' => 'Data',
     'deleted-successfully' => 'Usunięto pomyślnie',
     'ending' => 'Zakończenie',
     'error-occurred' => 'Napotkano błąd',

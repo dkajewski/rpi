@@ -99,8 +99,9 @@
                 </div>
             </div>
             <div class="box sensors row">
-                <div class="col-md-12 text-center icon">
-                    <font-awesome-icon :icon="['fas', 'smile-beam']"></font-awesome-icon>
+                <div class="col-md-12 text-center header">{{$t('basic.date')}}</div>
+                <div class="col-md-12 text-center">
+                    <div class="col-md-12 py-2 clock-container">{{date}}</div>
                 </div>
             </div>
         </div>
@@ -134,6 +135,7 @@
                 alertActive: false,
                 alertClass: '',
                 alertText: '',
+                date: '',
             }
         },
 
@@ -150,6 +152,7 @@
                 });
 
             setInterval(this.updateClock, 1000);
+            setInterval(this.updateDate, 1000);
         },
 
         methods: {
@@ -221,6 +224,10 @@
                 this.clock = new Date().toTimeString().slice(0, 8);
             },
 
+            updateDate: function() {
+                this.date = this.convertTimestampToDate(Date.now()/1000, true).substr(0, 10);
+            },
+
             setNotes: function() {
                 this.getRequest('/api/getNotes').then(response => {
                     this.handleNotesEvent(response.data);
@@ -268,8 +275,8 @@
                 if (getYmd) {
                     let year = date.getFullYear();
                     let month = '0'+(date.getMonth()+1);
-                    let day = date.getDate();
-                    result = day+'.'+month.substr(-2)+'.'+year+' ';
+                    let day = '0'+date.getDate();
+                    result = day.substr(-2)+'.'+month.substr(-2)+'.'+year+' ';
                 }
 
                 let hours = date.getHours();
