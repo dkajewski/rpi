@@ -187,6 +187,9 @@
                     case 'Clouds':
                         this.weather.icon = 'cloud-sun';
                         break;
+                    case 'Snow':
+                        this.weather.icon = 'snowman';
+                        break;
                     default: this.weather.icon = 'smile-beam';
                 }
             },
@@ -289,6 +292,6 @@
         },
     }
     import { library } from '@fortawesome/fontawesome-svg-core'
-    import { faCloudRain, faCloudSunRain, faCloudMoonRain, faSun, faCloudSun, faCloud, faSmog, faCloudShowersHeavy, faSnowflake, faCloudMoon, faSmileBeam, faBolt } from '@fortawesome/free-solid-svg-icons'
-    library.add(faCloudRain, faCloudSunRain, faCloudMoonRain, faSun, faCloudSun, faCloud, faSmog, faCloudShowersHeavy, faSnowflake, faCloudMoon, faSmileBeam, faBolt);
+    import { faCloudRain, faCloudSunRain, faCloudMoonRain, faSun, faCloudSun, faCloud, faSmog, faCloudShowersHeavy, faSnowflake, faCloudMoon, faSmileBeam, faBolt, faSnowman } from '@fortawesome/free-solid-svg-icons'
+    library.add(faCloudRain, faCloudSunRain, faCloudMoonRain, faSun, faCloudSun, faCloud, faSmog, faCloudShowersHeavy, faSnowflake, faCloudMoon, faSmileBeam, faBolt, faSnowman);
 </script>
