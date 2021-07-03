@@ -1,22 +1,10 @@
 <?php
 
-use BeyondCode\LaravelWebSockets\Dashboard\Http\Middleware\Authorize;
-
 return [
-
-    /*
-     * Set a custom dashboard configuration
-     */
-    'dashboard' => [
-        'port' => env('LARAVEL_WEBSOCKETS_PORT', 6001),
-    ],
 
     /*
      * This package comes with multi tenancy out of the box. Here you can
      * configure the different apps that can use the webSockets server.
-     *
-     * Optionally you specify capacity so you can limit the maximum
-     * concurrent connections for a specific app.
      *
      * Optionally you can disable client events so clients cannot send
      * messages to each other via the webSockets.
@@ -27,8 +15,6 @@ return [
             'name' => env('APP_NAME'),
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
-            'path' => env('PUSHER_APP_PATH'),
-            'capacity' => null,
             'enable_client_messages' => false,
             'enable_statistics' => true,
         ],
@@ -60,18 +46,6 @@ return [
      * This path will be used to register the necessary routes for the package.
      */
     'path' => 'laravel-websockets',
-
-    /*
-     * Dashboard Routes Middleware
-     *
-     * These middleware will be assigned to every dashboard route, giving you
-     * the chance to add your own middleware to this list or change any of
-     * the existing middleware. Or, you can simply stick with this list.
-     */
-    'middleware' => [
-        'web',
-        Authorize::class,
-    ],
 
     'statistics' => [
         /*
@@ -110,26 +84,17 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+        'local_cert' => null,
 
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
+        'local_pk' => null,
 
         /*
          * Passphrase for your local_cert file.
          */
-        'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
+        'passphrase' => null
     ],
-
-    /*
-     * Channel Manager
-     * This class handles how channel persistence is handled.
-     * By default, persistence is stored in an array by the running webserver.
-     * The only requirement is that the class should implement
-     * `ChannelManager` interface provided by this package.
-     */
-    'channel_manager' => \BeyondCode\LaravelWebSockets\WebSockets\Channels\ChannelManagers\ArrayChannelManager::class,
 ];
