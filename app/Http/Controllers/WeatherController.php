@@ -18,7 +18,16 @@ class WeatherController extends Controller
      */
     public function getCurrentWeather()
     {
-        $weather = $this->getCurrentWeatherFromDb();
+        try {
+            $weather = $this->getCurrentWeatherFromDb();
+        } catch (\Exception $e) {
+            $weather = null;
+        }
+
+        if (empty($weather)) {
+            $weather = $this->getCurrentWeatherFromApi();
+        }
+
         $lastUpdate = strtotime((string) $weather->updated_at);
         $now = time();
         if ($now - $lastUpdate > 3600) {
