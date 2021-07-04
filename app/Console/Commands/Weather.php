@@ -38,7 +38,8 @@ class Weather extends Command
     public function handle()
     {
         $weatherController = new WeatherController();
-        $weather = ['data' => $weatherController->getCurrentWeatherArray(), 'event_type' => 'weather'];
+        $weather = $weatherController->getCurrentWeatherFromApi();
+        $weather = ['data' => $weather, 'event_type' => 'weather'];
         event(new HomeEvent($weather));
     }
 }
