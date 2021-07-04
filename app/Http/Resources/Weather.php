@@ -25,7 +25,7 @@ class Weather extends JsonResource
             'feels_like' => $this->feels_like,
             'pressure' => $this->pressure,
             'humidity' => $this->humidity,
-            'wind_speed' => $this->wind_speed,
+            'wind_speed' => round($this->wind_speed, 2),
             'cloudiness' => $this->cloudiness,
             'sunrise' => $this->sunrise,
             'sunset' => $this->sunset,
