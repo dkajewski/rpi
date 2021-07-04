@@ -24,7 +24,7 @@ class WeatherController extends Controller
             $weather = null;
         }
 
-        if (empty($weather)) {
+        if (empty($weather->updated_at)) {
             $weather = $this->getCurrentWeatherFromApi();
         }
 
