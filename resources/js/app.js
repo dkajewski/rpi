@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 Vue.use(VueInternationalization);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
+Vue.component('notes', require('./components/modules/Notes').default);
 Vue.mixin({
     methods: {
         getRequest: async function(url = '', data = '') {
@@ -40,6 +40,24 @@ Vue.mixin({
             });
 
             return response.json();
+        },
+
+        convertTimestampToDate: function(timestamp, getYmd = false) {
+            let date = new Date(timestamp*1000);
+            let result = '';
+            if (getYmd) {
+                let year = date.getFullYear();
+                let month = '0'+(date.getMonth()+1);
+                let day = '0'+date.getDate();
+                result = day.substr(-2)+'.'+month.substr(-2)+'.'+year+' ';
+            }
+
+            let hours = date.getHours();
+            let minutes = "0"+date.getMinutes();
+            let seconds = "0"+date.getSeconds();
+            result += hours+':'+minutes.substr(-2)+':'+seconds.substr(-2);
+
+            return result;
         },
     }
 });

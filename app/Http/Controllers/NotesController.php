@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\HomeEvent;
+use App\Events\DefaultEvent;
+use App\Events\NotesEvent;
 use App\Note;
 use App\Http\Resources\Note as NoteResource;
 use Illuminate\Http\Request;
@@ -23,8 +24,8 @@ class NotesController extends Controller
         $note->start_at = date('Y-m-d', strtotime($request->start_at)) ?? '';
         $note->end_at = date('Y-m-d', strtotime($request->end_at)) ?? '';
         if ($note->save()) {
-            event(new HomeEvent(['data' => $this->getDisplayedNotes(), 'event_type' => 'notes']));
-            event(new HomeEvent(['data' => $this->getAllFutureNotesArray(), 'event_type' => 'futureNotes']));
+            event(new NotesEvent($this->getDisplayedNotes()));
+            event(new DefaultEvent(['data' => $this->getAllFutureNotesArray(), 'event_type' => 'futureNotes']));
             return response()->json(['type' => 'success', 'message' => __('basic.saved-successfully').': '.$note->description]);
         }
 
@@ -61,8 +62,8 @@ class NotesController extends Controller
     {
         $note = Note::find($request->id);
         if ($note->delete()) {
-            event(new HomeEvent(['data' => $this->getDisplayedNotes(), 'event_type' => 'notes']));
-            event(new HomeEvent(['data' => $this->getAllFutureNotesArray(), 'event_type' => 'futureNotes']));
+            event(new NotesEvent($this->getDisplayedNotes()));
+            event(new DefaultEvent(['data' => $this->getAllFutureNotesArray(), 'event_type' => 'futureNotes']));
 
             return response()->json(['type' => 'success', 'message' => __('basic.deleted-successfully')]);
         }

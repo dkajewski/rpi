@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Events\HomeEvent;
+use App\Events\NotesEvent;
 use App\Http\Controllers\NotesController;
 use Illuminate\Console\Command;
 
@@ -38,7 +38,6 @@ class Notes extends Command
     public function handle()
     {
         $notesController = new NotesController();
-        $notes = ['data' => $notesController->getDisplayedNotes(), 'event_type' => 'notes'];
-        event(new HomeEvent($notes));
+        event(new NotesEvent($notesController->getDisplayedNotes()));
     }
 }

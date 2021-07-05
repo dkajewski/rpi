@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class HomeEvent implements ShouldBroadcast
+class NotesEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -26,11 +26,11 @@ class HomeEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('home-channel');
+        return new Channel('default-channel');
     }
 
     public function broadcastAs()
     {
-        return 'home-event';
+        return 'notes-event';
     }
 }

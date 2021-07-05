@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Events\HomeEvent;
+use App\Events\DefaultEvent;
 use App\Http\Controllers\WeatherController;
 use Illuminate\Console\Command;
 
@@ -40,6 +40,6 @@ class Weather extends Command
         $weatherController = new WeatherController();
         $weather = $weatherController->getCurrentWeatherFromApi();
         $weather = ['data' => $weather, 'event_type' => 'weather'];
-        event(new HomeEvent($weather));
+        event(new DefaultEvent($weather));
     }
 }
