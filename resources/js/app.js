@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 Vue.use(VueInternationalization);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('notes', require('./components/modules/Notes').default);
+Vue.component('weather', require('./components/modules/Weather').default);
 Vue.mixin({
     methods: {
         getRequest: async function(url = '', data = '') {

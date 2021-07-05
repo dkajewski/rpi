@@ -2,11 +2,11 @@
 
 namespace App\Events;
 
-class NotesEvent extends DefaultEvent
+class WeatherEvent extends DefaultEvent
 {
 
     public function broadcastAs()
     {
-        return 'notes-event';
+        return 'weather-event';
     }
 }

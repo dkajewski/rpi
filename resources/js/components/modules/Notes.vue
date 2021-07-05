@@ -22,7 +22,6 @@
         created() {
             window.Echo.channel('default-channel')
                 .listen('.notes-event', (response) => {
-                    console.log(response);
                     this.handleNotesEvent(response.data);
                 });
 
