@@ -11,7 +11,11 @@ Vue.use(VueInternationalization);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('notes', require('./components/modules/Notes').default);
 Vue.component('weather', require('./components/modules/Weather').default);
+Vue.component('clock', require('./components/modules/Clock').default);
+Vue.component('date', require('./components/modules/Date').default);
 Vue.component('navbar', require('./components/menu/Navbar').default);
+
+Vue.component('notes-admin', require('./components/admin/Notes').default);
 Vue.mixin({
     methods: {
         getRequest: async function(url = '', data = '') {

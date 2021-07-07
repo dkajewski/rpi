@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import Home from './components/basic/Home';
-import Admin from './components/basic/Admin';
+import Home from './views/Home';
+import Admin from './views/Admin';
 
 const router = new VueRouter({
     mode: 'history',
