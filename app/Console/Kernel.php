@@ -28,7 +28,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('weather:send-event')->everyThirtyMinutes();
         $schedule->command('notes:send-event')->everyTenMinutes();
-        $schedule->command('brightness:set')->hourly();
+        $schedule->command('brightness:set')->everyFiveMinutes();
+        $schedule->command('device:restart')->dailyAt("21:37");
     }
 
     /**
