@@ -1,22 +1,13 @@
 require('./bootstrap');
 
-import Vue from 'vue';
+import {createApp} from 'vue';
 import Routes from './routes';
-import App from './views/App';
-import VueInternationalization from 'vue-i18n';
+import {createI18n} from 'vue-i18n';
+import App from './views/App.vue';
 import Locale from './vue-i18n-locales.generated';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-Vue.use(VueInternationalization);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-Vue.component('notes', require('./components/modules/Notes').default);
-Vue.component('weather', require('./components/modules/Weather').default);
-Vue.component('clock', require('./components/modules/Clock').default);
-Vue.component('date', require('./components/modules/Date').default);
-Vue.component('navbar', require('./components/menu/Navbar').default);
-
-Vue.component('notes-admin', require('./components/admin/Notes').default);
-Vue.mixin({
+const mixin = ({
     methods: {
         getRequest: async function(url = '', data = '') {
             if (data) {
@@ -69,16 +60,22 @@ Vue.mixin({
 });
 
 const lang = document.documentElement.lang.substr(0, 2);
-const i18n = new VueInternationalization({
+const i18n = createI18n({
     locale: lang,
     messages: Locale
 });
 
-const app = new Vue({
-    el: '#app',
-    router: Routes,
-    render: h => h(App),
-    i18n,
-});
+const app = createApp(App);
+app.use(Routes);
+app.use(i18n);
 
-export default app;
+app.component('font-awesome-icon', FontAwesomeIcon);
+app.component('notes', require('./components/modules/Notes').default);
+app.component('weather', require('./components/modules/Weather').default);
+app.component('clock', require('./components/modules/Clock').default);
+app.component('date', require('./components/modules/Date').default);
+app.component('navbar', require('./components/menu/Navbar').default);
+app.component('notes-admin', require('./components/admin/Notes').default);
+
+app.mixin(mixin);
+app.mount('#app');

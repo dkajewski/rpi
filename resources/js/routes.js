@@ -1,13 +1,10 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-
-Vue.use(VueRouter);
+import {createRouter, createWebHashHistory} from 'vue-router';
 
 import Home from './views/Home';
 import Admin from './views/Admin';
 
-const router = new VueRouter({
-    mode: 'history',
+const router = createRouter({
+    history: createWebHashHistory(),
     routes: [
         {
             path: '/',
