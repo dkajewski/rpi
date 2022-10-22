@@ -2,17 +2,19 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JetBrains\PhpStorm\ArrayShape;
 
 class Note extends JsonResource
 {
     /**
      * Transform the resource into an array
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return array
      */
-    public function toArray($request)
+    #[ArrayShape(['id' => "mixed", 'description' => "mixed", 'start_at' => "false|int", 'end_at' => "false|int"])] public function toArray($request)
     {
         return [
             'id' => $this->id,

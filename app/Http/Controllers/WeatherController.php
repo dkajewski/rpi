@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Weather;
 use GuzzleHttp\Client;
 use App\Http\Resources\Weather as WeatherResource;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 class WeatherController extends Controller
@@ -14,9 +16,10 @@ class WeatherController extends Controller
      * Function returns json object with current weather
      * When last weather update is older than 1 hour - there is an API call for newest
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
+     * @throws GuzzleException
      */
-    public function getCurrentWeather()
+    public function getCurrentWeather(): JsonResponse
     {
         $weather = $this->getCurrentWeatherFromDb();
         if (empty($weather->updated_at)) {
@@ -40,8 +43,9 @@ class WeatherController extends Controller
     /**
      * Retrieves current weather from api
      * @return WeatherResource
+     * @throws GuzzleException
      */
-    public function getCurrentWeatherFromApi()
+    public function getCurrentWeatherFromApi(): WeatherResource
     {
         $apiKey = env('OPENWEATHERMAP_API_KEY');
         $latitude = env('OWM_LATITUDE');
@@ -79,7 +83,7 @@ class WeatherController extends Controller
      * Retrieves current weather from database
      * @return WeatherResource
      */
-    private function getCurrentWeatherFromDb()
+    private function getCurrentWeatherFromDb(): WeatherResource
     {
         return new WeatherResource(Weather::latest()->first());
     }

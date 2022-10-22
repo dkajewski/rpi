@@ -17,7 +17,7 @@ class NotesController extends Controller
         return response()->json(['data' => $resource]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $note = new Note();
         $note->description = $request->description ?? '';
@@ -32,14 +32,14 @@ class NotesController extends Controller
         return response()->json(['type' => 'error', 'message' => __('basic.error-occurred')]);
     }
 
-    public function getAllFutureNotes()
+    public function getAllFutureNotes(): \Illuminate\Http\JsonResponse
     {
         $resource = $this->getAllFutureNotesArray();
 
         return response()->json(['data' => $resource]);
     }
 
-    private function getAllFutureNotesArray()
+    private function getAllFutureNotesArray(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $notes = Note::where('start_at', '>=', date('Y-m-d'))
             ->orderBy('start_at', 'asc')
@@ -48,7 +48,7 @@ class NotesController extends Controller
         return NoteResource::collection($notes);
     }
 
-    public function getDisplayedNotes()
+    public function getDisplayedNotes(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $notes = Note::where('start_at', '>=', date('Y-m-d'))
             ->orderBy('start_at', 'asc')
@@ -58,7 +58,7 @@ class NotesController extends Controller
         return NoteResource::collection($notes);
     }
 
-    public function deleteNote(Request $request)
+    public function deleteNote(Request $request): \Illuminate\Http\JsonResponse
     {
         $note = Note::find($request->id);
         if ($note->delete()) {

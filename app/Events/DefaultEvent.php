@@ -22,14 +22,14 @@ class DefaultEvent implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return \Illuminate\Broadcasting\Channel|\Illuminate\Broadcasting\Channel[]
+     * @return Channel
      */
-    public function broadcastOn()
+    public function broadcastOn(): Channel
     {
         return new Channel('default-channel');
     }
 
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'default-event';
     }

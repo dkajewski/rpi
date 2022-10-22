@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Events\WeatherEvent;
 use App\Http\Controllers\WeatherController;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 
 class Weather extends Command
@@ -34,6 +35,7 @@ class Weather extends Command
 
     /**
      * Execute the console command.
+     * @throws GuzzleException
      */
     public function handle()
     {
