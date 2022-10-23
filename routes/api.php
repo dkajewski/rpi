@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NotesController;
+use App\Http\Controllers\WeatherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group([], function () {
     Route::post('auth', function () { return 1; });
-    Route::post('deleteNote', 'NotesController@deleteNote');
-    Route::get('getAllFutureNotes', 'NotesController@getAllFutureNotes');
-    Route::get('getCurrentWeather', 'WeatherController@getCurrentWeather');
-    Route::get('getNotes', 'NotesController@index');
-    Route::post('saveNote', 'NotesController@store');
+    Route::post('deleteNote', [NotesController::class, 'deleteNote']);
+    Route::get('getAllFutureNotes', [NotesController::class, 'getAllFutureNotes']);
+    Route::get('getCurrentWeather', [WeatherController::class, 'getCurrentWeather']);
+    Route::get('getNotes', [NotesController::class, 'index']);
+    Route::post('saveNote', [NotesController::class, 'store']);
 });
 

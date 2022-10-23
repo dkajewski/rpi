@@ -24,4 +24,15 @@ use Illuminate\Database\Eloquent\Model;
 class Weather extends Model
 {
     protected $table = 'weather';
+
+    protected $fillable = ['weather',
+        'weather_description',
+        'temp',
+        'feels_like',
+        'pressure',
+        'humidity',
+        'wind_speed',
+        'cloudiness',
+        'sunrise',
+        'sunset'];
 }
