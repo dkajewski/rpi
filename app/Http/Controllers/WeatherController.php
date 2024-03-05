@@ -33,4 +33,9 @@ class WeatherController extends Controller
     {
         return $this->sendJsonResponse($this->service->getCurrentWeather());
     }
+
+    public function getCurrentWeatherFromApiResource(): JsonResponse
+    {
+        return $this->sendJsonResponse($this->service->getCurrentWeatherFromApiResource());
+    }
 }

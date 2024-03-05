@@ -57,6 +57,11 @@ class WeatherService
         return $this->repository->getLatestEntry();
     }
 
+    public function getCurrentWeatherFromApiResource(): WeatherResource
+    {
+        return new WeatherResource($this->getCurrentWeatherFromApi());
+    }
+
     /**
      * @return WeatherResource
      * @throws GuzzleException

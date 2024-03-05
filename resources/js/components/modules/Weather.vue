@@ -62,7 +62,7 @@
         created() {
             window.Echo.channel('default-channel')
                 .listen('.weather-event', (response) => {
-                    this.handleWeatherEvent(response.data);
+                    this.handleWeatherEvent(response.data.original.data);
                 });
 
             this.getRequest('/api/getCurrentWeather').then(response => {

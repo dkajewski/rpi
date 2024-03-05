@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use App\Events\WeatherEvent;
 use App\Http\Controllers\WeatherController;
+use App\Repositories\WeatherRepository;
+use App\Services\WeatherService;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 
@@ -39,7 +41,8 @@ class Weather extends Command
      */
     public function handle()
     {
-        $weatherController = new WeatherController();
-        event(new WeatherEvent($weatherController->getCurrentWeatherFromApi()));
+        $repository = new WeatherRepository(new \App\Weather());
+        $weatherController = new WeatherController($repository, new WeatherService($repository));
+        event(new WeatherEvent($weatherController->getCurrentWeatherFromApiResource()));
     }
 }
