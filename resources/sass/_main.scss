@@ -50,6 +50,7 @@ body {
 .notes {
   height: 300px;
   .note {
+    font-size: 1.2rem;
     border: 4px solid transparent;
     &.upcoming {
       border: 4px solid yellow;

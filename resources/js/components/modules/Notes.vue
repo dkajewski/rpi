@@ -3,7 +3,7 @@
         <div class="col-md-12 text-center header">{{$t('basic.events')}}</div>
         <div class="col-md-12" v-show="!notes.length">{{$t('basic.no-events')}}</div>
         <div class="col-md-12" v-cloak>
-            <div class="row note py-1 px-1 my-1" v-for="note in notes" v-bind:class="{'upcoming': note.upcoming, 'taking-place': note.taking_place}">
+            <div class="row note px-1 my-1" v-for="note in notes" v-bind:class="{'upcoming': note.upcoming, 'taking-place': note.taking_place}">
                 <span>{{note.start_at}}</span>
                 <span v-show="note.end_at !== 0"> - {{note.end_at}}</span>
                 <span>: {{note.description}}</span>
