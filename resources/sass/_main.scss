@@ -88,3 +88,12 @@ body {
 .weather-updated-at {
   font-size: 12px;
 }
+
+table {
+  .btn-danger {
+    background-color: $red;
+  }
+  .btn-primary {
+    background-color: $blue;
+  }
+}

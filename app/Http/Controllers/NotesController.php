@@ -22,6 +22,10 @@ class NotesController extends Controller
     public function store(Request $request): JsonResponse
     {
         $note = new Note();
+        if (!empty($request->id)) {
+            $note = Note::find($request->id);
+        }
+
         $note->description = $request->description ?? '';
         $note->start_at = date('Y-m-d', strtotime($request->start_at)) ?? '';
         $note->end_at = date('Y-m-d', strtotime($request->end_at)) ?? '';
